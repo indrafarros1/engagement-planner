@@ -1,0 +1,70 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/*
+ * Identitas visual "Lamaran Planner" (PRD 13.2):
+ * cream #FFF8EF · coral #FF7A6B · navy #25233A
+ */
+@theme {
+    --color-cream-50: #FFFBF4;
+    --color-cream-100: #FFF8EF;
+    --color-cream-200: #FAF0E0;
+    --color-cream-300: #F3E5CC;
+
+    --color-coral-50: #FFF1EE;
+    --color-coral-100: #FFE3DE;
+    --color-coral-200: #FFC9C0;
+    --color-coral-300: #FFA597;
+    --color-coral-400: #FF8B7B;
+    --color-coral-500: #FF7A6B;
+    --color-coral-600: #F75B49;
+    --color-coral-700: #D94331;
+    --color-coral-800: #B33526;
+    --color-coral-900: #8F2D22;
+
+    --color-navy-50: #EEEDF5;
+    --color-navy-100: #D8D6E7;
+    --color-navy-200: #B3AFD0;
+    --color-navy-300: #8B86B5;
+    --color-navy-400: #655F99;
+    --color-navy-500: #48426F;
+    --color-navy-600: #3A3459;
+    --color-navy-700: #2E2B48;
+    --color-navy-800: #292639;
+    --color-navy-900: #25233A;
+}
+
+/* Latar panel: cream lembut */
+.fi-body {
+    background-color: var(--color-cream-100);
+}
+
+/* Sidebar: navy gelap, teks cream */
+.fi-sidebar {
+    background-color: var(--color-navy-900) !important;
+}
+.fi-sidebar .fi-sidebar-header,
+.fi-sidebar .fi-sidebar-group-label,
+.fi-sidebar .fi-sidebar-item-label,
+.fi-sidebar .fi-sidebar-item a {
+    color: var(--color-cream-100);
+}
+.fi-sidebar .fi-sidebar-item-active {
+    background-color: var(--color-coral-500);
+}
+
+/* Header/aturan interaktif */
+.fi-header-heading {
+    color: var(--color-navy-900);
+}
+
+/* Topografi tombol primer menonjol (PRD 13.2 aksi mudah dijangkau) */
+.fi-btn-primary {
+    background-color: var(--color-coral-500);
+}
+
+.fi-btn-primary:hover {
+    background-color: var(--color-coral-600);
+}

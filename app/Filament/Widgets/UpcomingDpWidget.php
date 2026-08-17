@@ -15,6 +15,8 @@ class UpcomingDpWidget extends Widget
 
     protected function getViewData(): array
     {
+        $canSee = auth()->user()?->canViewAmounts() ?? true;
+
         $payments = Payment::with('budgetItem')
             ->where('cancelled', false)
             ->whereNotNull('due_date')
@@ -26,6 +28,7 @@ class UpcomingDpWidget extends Widget
 
         return [
             'payments' => $payments,
+            'canSeeAmounts' => $canSee,
         ];
     }
 }

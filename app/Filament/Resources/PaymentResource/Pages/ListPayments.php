@@ -14,7 +14,12 @@ class ListPayments extends ListRecords
     {
         return [
             Actions\CreateAction::make()->label('+ Catat Pembayaran'),
-            \App\Filament\Resources\PaymentResource\Actions\ExportPaymentsCsvAction::make(),
+            \Filament\Actions\ActionGroup::make([
+                \App\Filament\Resources\PaymentResource\Actions\ExportPaymentsExcelAction::make(),
+                \App\Filament\Resources\PaymentResource\Actions\ExportPaymentsCsvAction::make(),
+            ])->label('Export')
+                ->icon('heroicon-o-document-arrow-down')
+                ->color('success'),
         ];
     }
 

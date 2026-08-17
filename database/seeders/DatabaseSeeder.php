@@ -212,3 +212,86 @@ class DatabaseSeeder extends Seeder
         }
     }
 }
+
+// ===== Akun Partner (Fase 3) =====
+$partner = User::firstOrCreate(
+    ['email' => 'partner@lamaran.test'],
+    [
+        'name' => 'Partner (Nadia)',
+        'password' => \Illuminate\Support\Facades\Hash::make('PartnerLamaran2026!'),
+        'role' => \App\Enums\UserRole::Partner->value,
+        'partner_side' => \App\Enums\Payer::CPW->value,
+        'can_view_amounts' => false, // contoh: partner tanpa akses nominal
+    ]
+);
+
+// ===== Vendor + Penawaran (Fase 2) =====
+$vendors = [
+    [
+        'name' => 'Griya Dekor Mayang',
+        'category' => \App\Enums\BudgetCategory::Decoration->value,
+        'contact_name' => 'Bu Mayang', 'contact_phone' => '0812-3456-7890',
+        'address' => 'Jl. Asia Afrika No. 88, Bandung',
+        'options' => [
+            ['name' => 'Paket Pelaminan Dasar', 'price' => 4_500_000, 'description' => 'Pelaminan + backdrop + 2 janur', 'selected' => false],
+            ['name' => 'Paket Pelaminan Premium', 'price' => 6_000_000, 'description' => 'Pelaminan, backdrop, janur, karpet, dekor meja', 'selected' => true],
+            ['name' => 'Paket Lengkap Royal', 'price' => 8_500_000, 'description' => 'Semua premium + dekor tamu + lighting', 'selected' => false],
+        ],
+    ],
+    [
+        'name' => 'Katering Selerasa',
+        'category' => \App\Enums\BudgetCategory::Catering->value,
+        'contact_name' => 'Pak Rasa', 'contact_phone' => '0821-1111-2222',
+        'address' => 'Jl. Setiabudi No. 5, Bandung',
+        'options' => [
+            ['name' => 'Paket Nasi Box 75K', 'price' => 4_500_000, 'description' => 'Nasi box @Rp75.000 x 60', 'selected' => false],
+            ['name' => 'Paket Prasmanan 60K', 'price' => 3_600_000, 'description' => 'Prasmanan @Rp60.000 x 60', 'selected' => true],
+        ],
+    ],
+    [
+        'name' => 'Studio Foto Melati',
+        'category' => \App\Enums\BudgetCategory::Documentation->value,
+        'contact_name' => 'Mas Ari', 'contact_phone' => '0877-4444-5555',
+        'address' => 'Jl. Dago No. 12, Bandung',
+        'options' => [
+            ['name' => 'Paket Prewedding + Hari H', 'price' => 3_500_000, 'description' => 'Prewedding, dokumentasi acara, 2 videografer', 'selected' => true],
+            ['name' => 'Paket Golden', 'price' => 5_000_000, 'description' => 'Plus softcopy semua + drone', 'selected' => false],
+        ],
+    ],
+];
+foreach ($vendors as $v) {
+    $options = $v['options'];
+    unset($v['options']);
+    $vendor = \App\Models\Vendor::firstOrCreate(['name' => $v['name']], $v);
+    foreach ($options as $o) {
+        \App\Models\VendorOption::firstOrCreate(
+            ['vendor_id' => $vendor->id, 'name' => $o['name']],
+            $o + ['vendor_id' => $vendor->id]
+        );
+    }
+}
+
+// ===== Seserahan (Fase 2) =====
+$seserahan = [
+    ['name' => 'Kain Batik & Kebaya', 'quantity' => 1, 'unit_price' => 1_200_000, 'status' => 'done', 'pic' => 'cpw'],
+    ['name' => 'Kue Tradisional (Kue Serabi dkk)', 'quantity' => 10, 'unit_price' => 50_000, 'status' => 'preparing', 'pic' => 'bersama'],
+    ['name' => 'Gelang & Kalung Emas', 'quantity' => 1, 'unit_price' => 2_500_000, 'status' => 'planned', 'pic' => 'cpp'],
+    ['name' => 'Alat Rias (Seserahan)', 'quantity' => 1, 'unit_price' => 750_000, 'status' => 'planned', 'pic' => 'cpw'],
+    ['name' => 'Peralatan Makan & Kelamin', 'quantity' => 1, 'unit_price' => 900_000, 'status' => 'planned', 'pic' => 'bersama'],
+];
+foreach ($seserahan as $s) {
+    \App\Models\SeserahanItem::firstOrCreate(['name' => $s['name']], $s);
+}
+
+// ===== Tamu/Keluarga (Fase 3) =====
+$guests = [
+    ['name' => 'Keluarga Bapak Raka', 'group' => 'cpp', 'total_people' => 12, 'status' => 'confirmed'],
+    ['name' => 'Keluarga Ibu Raka', 'group' => 'cpp', 'total_people' => 8, 'status' => 'confirmed'],
+    ['name' => 'Keluarga Bapak Nadia', 'group' => 'cpw', 'total_people' => 15, 'status' => 'confirmed'],
+    ['name' => 'Keluarga Ibu Nadia', 'group' => 'cpw', 'total_people' => 10, 'status' => 'unknown'],
+    ['name' => 'Kerabat dekat CPP', 'group' => 'cpp', 'total_people' => 6, 'status' => 'unknown'],
+    ['name' => 'Kerabat dekat CPW', 'group' => 'cpw', 'total_people' => 5, 'status' => 'invited'],
+];
+foreach ($guests as $g) {
+    \App\Models\Guest::firstOrCreate(['name' => $g['name']], $g);
+}

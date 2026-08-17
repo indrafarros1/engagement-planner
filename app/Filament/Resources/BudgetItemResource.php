@@ -8,7 +8,7 @@ use App\Filament\Resources\BudgetItemResource\Pages;
 use App\Filament\Resources\BudgetItemResource\Widgets\BudgetStatsOverview;
 use App\Models\BudgetItem;
 use Filament\Forms;
-use Filament\Forms\Components\Section;
+use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;

@@ -2,6 +2,7 @@
     <x-filament::section heading="Jatuh Tempo Pembayaran Terdekat" icon="heroicon-m-credit-card">
         @php
             $payments = \Illuminate\Support\Arr::get($this->getViewData(), 'payments', collect());
+            $canSeeAmounts = \Illuminate\Support\Arr::get($this->getViewData(), 'canSeeAmounts', true);
             $badgeStyles = [
                 'danger' => 'bg-rose-50 text-rose-700 border border-rose-200',
                 'warning' => 'bg-amber-50 text-amber-700 border border-amber-200',
@@ -27,11 +28,10 @@
                     @endphp
                     <li class="flex items-center justify-between gap-4 py-3.5">
                         <div class="min-w-0">
-                            <a href="{{ \App\Filament\Resources\PaymentResource::getUrl('edit', ['record' => $p]) }}"
-                               class="text-sm font-semibold text-navy-900 hover:text-coral-600 transition-colors truncate block">
+                            <span class="text-sm font-semibold text-navy-900 truncate block">
                                 {{ $p->budgetItem?->name }}
                                 <span class="text-navy-900/40 font-medium">· {{ $p->type?->label() }}</span>
-                            </a>
+                            </span>
                             <span class="text-xs text-navy-900/50 mt-0.5 block">
                                 {{ $p->due_date ? $p->due_date->translatedFormat('d M Y') : 'Tanpa jatuh tempo' }}
                                 @if ($isOverdue && $p->due_date)
@@ -40,7 +40,9 @@
                             </span>
                         </div>
                         <div class="text-right shrink-0">
-                            <p class="text-sm font-bold text-navy-900 tabular-nums">Rp {{ number_format($p->amount, 0, ',', '.') }}</p>
+                            <p class="text-sm font-bold text-navy-900 tabular-nums">
+                                {{ $canSeeAmounts ? 'Rp ' . number_format($p->amount, 0, ',', '.') : '•••' }}
+                            </p>
                             <span class="inline-block mt-1 text-[11px] font-semibold rounded-md px-2 py-0.5 {{ $badgeStyles[$badge[1]] }}">
                                 {{ $badge[0] }}
                             </span>

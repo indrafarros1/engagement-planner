@@ -32,6 +32,8 @@ class AdminPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->registration()
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
             ->colors([
                 'primary' => Color::hex('#FF7A6B'),   // coral (PRD 13.2)
                 'navy' => Color::hex('#25233A'),

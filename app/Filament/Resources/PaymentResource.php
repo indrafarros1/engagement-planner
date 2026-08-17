@@ -11,7 +11,7 @@ use App\Models\Payment;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Section;
+use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -171,6 +171,13 @@ class PaymentResource extends Resource
             ->actions([
                 \Filament\Actions\EditAction::make(),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            PaymentResource\RelationManagers\AttachmentsRelationManager::class,
+        ];
     }
 
     public static function getWidgets(): array

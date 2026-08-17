@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use App\Filament\Widgets\ActivitiesAtAGlance;
 use App\Filament\Widgets\EngagementOverview;
+use App\Filament\Widgets\GuestsAtAGlance;
 use App\Filament\Widgets\UpcomingDpWidget;
 use Filament\Pages\Dashboard as BaseDashboard;
 
@@ -18,6 +19,7 @@ class Dashboard extends BaseDashboard
         return [
             EngagementOverview::class,
             ActivitiesAtAGlance::class,
+            GuestsAtAGlance::class,
             UpcomingDpWidget::class,
         ];
     }

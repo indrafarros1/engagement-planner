@@ -17,6 +17,16 @@ Web pribadi persiapan acara **lamaran** (bukan pernikahan) — dipakai pasangan 
 | T1.7 | Export CSV anggaran & pembayaran | ✅ |
 | T1.8 | Desain: palet cream #FFF8EF / coral #FF7A6B / navy #25233A, mobile-first 360px, label status berteks | ✅ |
 | T1.9 | QA: 10 unit test aturan bisnis 5.5 hijau + akun demo | ✅ |
+| T2.1 | Vendor + pilihan/penawaran + halaman perbandingan (TERMURAH, Pilih, filter) | ✅ |
+| T2.2 | Seserahan (CRUD + statistik) | ✅ |
+| T2.3 | Lampiran bukti multi-file di pembayaran | ✅ |
+| T2.4 | Impor Buku.xlsx (template + parsing) | ✅ |
+| T2.5 | Export Excel .xlsx (anggaran & pembayaran) | ✅ |
+| T2.6 | Reminder harian 07:00 WIB (command + dedup) | ✅ |
+| T3.1 | Akun Partner + role + izin + hak akses nominal | ✅ |
+| T3.2 | Activity log (observer + halaman) | ✅ |
+| T3.3 | Notifikasi in-app (bell + database notifications) | ✅ |
+| T3.4 | Tamu/keluarga (CRUD + widget dashboard) | ✅ |
 
 ## Aturan Bisnis (PRD 5.5) — teruji otomatis
 
@@ -42,9 +52,10 @@ php artisan serve
 
 Akses: `http://localhost:8000/admin`
 
-**Akun demo:**
-- Email: `demo@lamaran.test`
-- Password: `DemoLamaran2026!`
+**Akun:**
+- Owner: `owner@engagement.test` / `Owner2026!Dev` (akses penuh)
+- Partner (tanpa nominal): `partner@lamaran.test` / `PartnerLamaran2026!`
+- Demo: `demo@lamaran.test` / `DemoLamaran2026!`
 
 ## Test
 

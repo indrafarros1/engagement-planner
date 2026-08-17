@@ -29,6 +29,11 @@ class Payment extends Model
         return $this->belongsTo(BudgetItem::class);
     }
 
+    public function attachments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(PaymentAttachment::class);
+    }
+
     /** Nominal yang benar-benar dibayar (fallback: amount bila paid_date terisi). */
     public function paidAmount(): int
     {

@@ -115,7 +115,7 @@
         </div>
 
         {{-- RINGKASAN ANGGARAN — kartu bersih, semua klik → data sumber --}}
-        @if ($stats['count'] > 0)
+        @if ($stats['count'] > 0 && $this->canSeeAmounts())
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 @php
                     $cards = [
@@ -146,15 +146,19 @@
                     </a>
                 @endforeach
             </div>
-        @else
-            <div class="rounded-xl border border-dashed border-navy-900/15 bg-white/60 p-10 text-center">
-                <p class="text-navy-900/60 font-medium">Belum ada item anggaran.</p>
-                <a href="{{ \App\Filament\Resources\BudgetItemResource::getUrl('create') }}"
-                   class="mt-4 inline-flex items-center gap-2 bg-coral-500 hover:bg-coral-600 text-white rounded-lg px-5 py-2.5 text-sm font-semibold shadow-sm transition-colors">
-                    <x-filament::icon icon="heroicon-m-plus" class="w-4 h-4" />
-                    Tambah Item Anggaran
-                </a>
+        @elseif ($stats['count'] > 0 && ! $this->canSeeAmounts())
+            <div class="rounded-xl border border-navy-900/10 bg-white/60 p-6 text-center">
+                <x-filament::icon icon="heroicon-m-lock-closed" class="w-6 h-6 mx-auto text-navy-900/30" />
+                <p class="mt-2 text-sm text-navy-900/50 font-medium">
+                    Nominal anggaran disembunyikan untuk akun ini (izin khusus Owner).
+                </p>
             </div>
+        @else
+            <a href="{{ \App\Filament\Resources\BudgetItemResource::getUrl('create') }}"
+               class="mt-4 inline-flex items-center gap-2 bg-coral-500 hover:bg-coral-600 text-white rounded-lg px-5 py-2.5 text-sm font-semibold shadow-sm transition-colors">
+                <x-filament::icon icon="heroicon-m-plus" class="w-4 h-4" />
+                Tambah Item Anggaran
+            </a>
         @endif
     </x-filament::section>
 </x-filament-widgets::widget>

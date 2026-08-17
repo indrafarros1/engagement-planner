@@ -20,6 +20,14 @@ class EngagementOverview extends Widget
 
     public function getBudgetStats(): array
     {
+        if (auth()->user() && ! auth()->user()->canViewAmounts()) {
+            // Partner tanpa izin: angka disembunyikan (hak akses nominal, Fase 3)
+            return [
+                'total' => null, 'paid' => null, 'remaining' => null,
+                'outstanding' => null, 'count' => BudgetItem::where('archived', false)->count(),
+            ];
+        }
+
         $items = BudgetItem::where('archived', false)->get();
 
         return [
@@ -29,6 +37,11 @@ class EngagementOverview extends Widget
             'outstanding' => $items->sum('outstanding_payments'),
             'count' => $items->count(),
         ];
+    }
+
+    public function canSeeAmounts(): bool
+    {
+        return auth()->user()?->canViewAmounts() ?? false;
     }
 
     public function countdownParts(): array

@@ -1,58 +1,76 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 💍 Lamaran Planner — Engagement Planner
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Web pribadi persiapan acara **lamaran** (bukan pernikahan) — dipakai pasangan & keluarga dekat untuk mengelola profil acara, kegiatan/checklist, anggaran, dan DP/pembayaran.
 
-## About Laravel
+**Stack:** Laravel 13 · Livewire 4 · Filament 5 · Blade + Tailwind CSS · MySQL (arsitektur siap migrasi PostgreSQL/SQLite)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fitur Fase 1 (MVP)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+| # | Fitur | Status |
+|---|---|---|
+| T1.1 | Setup Laravel + auth + Filament, branding tema engagement | ✅ |
+| T1.2 | Profil acara lamaran (pasangan, tanggal, waktu, lokasi, tamu, catatan, status) | ✅ |
+| T1.3 | Dashboard: countdown Asia/Jakarta + total anggaran/dibayar/sisa/belum bayar + kegiatan <7 hari & terlambat + DP terdekat (semua klik → sumber) | ✅ |
+| T1.4 | Kegiatan: CRUD + filter (status/kategori/PIC/rentang tanggal/terlambat) + sortir (deadline/prioritas) + arsip (bukan hapus) | ✅ |
+| T1.5 | Item anggaran: CRUD — satuan×jumlah=estimasi, nilai kontrak, penanggung CPP/CPW/Bersama/Lainnya | ✅ |
+| T1.6 | DP & pembayaran: CRUD — jenis (DP/Cicilan/Pelunasan/Refund/Koreksi), status otomatis, metode, bukti | ✅ |
+| T1.7 | Export CSV anggaran & pembayaran | ✅ |
+| T1.8 | Desain: palet cream #FFF8EF / coral #FF7A6B / navy #25233A, mobile-first 360px, label status berteks | ✅ |
+| T1.9 | QA: 10 unit test aturan bisnis 5.5 hijau + akun demo | ✅ |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Aturan Bisnis (PRD 5.5) — teruji otomatis
 
-## Learning Laravel
+1. Total dibayar = jumlah pembayaran valid
+2. Sisa = kontrak − dibayar
+3. Terlambat = jatuh tempo < hari ini DAN sisa > 0
+4. Nominal > 0
+5. Pembayaran valid tidak boleh melebihi kontrak → koreksi via **Koreksi/Refund** (tanpa hapus histori)
+6. Kegiatan selesai ≠ pembayaran otomatis
+7. Semua nominal integer Rupiah
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Setup Lokal
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer install
+cp .env.example .env
+php artisan key:generate
+# Siapkan DB MySQL: engagement_planner
+php artisan migrate --seed
+npm install && npm run build
+php artisan serve
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Akses: `http://localhost:8000/admin`
 
-## Contributing
+**Akun demo:**
+- Email: `demo@lamaran.test`
+- Password: `DemoLamaran2026!`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Test
 
-## Code of Conduct
+```bash
+php artisan test --filter=BusinessRulesTest   # 10 test aturan 5.5
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Desain (PRD 13.2)
 
-## Security Vulnerabilities
+- Cream `#FFF8EF` latar · Coral `#FF7A6B` aksi primer · Navy `#25233A` sidebar/teks
+- Mobile-first (minimum 360px), tanpa overflow horizontal
+- Status selalu berlabel teks — warna hanya penguat
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Struktur
 
-## License
+```
+app/Enums/                         # EventStatus, PaymentStatus, PaymentType, dll
+app/Models/                        # EventProfile, Activity, BudgetItem, Payment
+app/Filament/Resources/            # Resource CRUD + widget statistik
+app/Filament/Widgets/              # Overview countdown, kegiatan, DP terdekat
+resources/views/filament/widgets/  # View Blade dashboard
+database/seeders/DatabaseSeeder.php # Akun demo + data contoh
+tests/Feature/BusinessRulesTest.php # Verifikasi aturan 5.5
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## PRD & TASKS
+
+- `PRD-ENGAGEMENT.md` — dokumen produk (direkonstruksi dari brief PM karena file asli tidak ada di disk)
+- `TASKS.md` — checklist pengerjaan

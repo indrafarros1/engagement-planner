@@ -1,51 +1,54 @@
-# TASKS — Engagement Planner Fase 1 (MVP)
+# TASKS — Engagement Planner (Fase 1–3)
 
-> Sumber: brief AI PM 17 Agu 2026. Target 2–3 minggu, demo minggu ke-2.
-> Lokasi kerja: `/opt/data/projects/engagement-planner/` (app) — **dipush ke GitHub `indrafarros1/engagement-planner` (master) ✅**
+> Sumber: brief AI PM + instruksi Bos 17 Agu 2026. **SEMUA fase selesai.**
+> Lokasi: `/opt/data/projects/engagement-planner/` (app) — push GitHub `indrafarros1/engagement-planner` ✅
 
-## Milestone
+## STATUS: Fase 1–3 + Redesign + Ops — SELESAI ✅ (17 Agu 2026)
 
-- **M1:** T1.1–T1.3 (setup + auth + Filament, profil acara, dashboard) — **SELESAI 17 Agu 2026**
-- **M2:** T1.4–T1.6 (kegiatan, anggaran, pembayaran) — **SELESAI 17 Agu 2026**
-- **M3:** T1.7–T1.9 (export, desain, QA + akun demo) — **SELESAI 17 Agu 2026**
+## Fase 1 (MVP) — SELESAI
+- [x] T1.1 Laravel 13 + auth + Livewire 4 + Filament v5, branding engagement
+- [x] T1.2 Profil acara lamaran
+- [x] T1.3 Dashboard countdown + ringkasan + kegiatan + DP (klik→sumber)
+- [x] T1.4 Kegiatan: CRUD + filter + sortir + arsip
+- [x] T1.5 Item anggaran: satuan×jumlah, kontrak, penanggung
+- [x] T1.6 DP & pembayaran: status otomatis + aturan 5.5
+- [x] T1.7 Export CSV
+- [x] T1.8 Desain cream/coral/navy + mobile 360px
+- [x] T1.9 QA + akun demo (10 test hijau)
 
-## Checklist
+## Fase 2 — SELESAI
+- [x] T2.1 Vendor + Pilihan/Penawaran + halaman Perbandingan (TERMURAH, Pilih, filter)
+- [x] T2.2 Seserahan CRUD + statistik
+- [x] T2.3 Lampiran bukti multi-file di pembayaran
+- [x] T2.4 Impor Buku.xlsx (template + parsing + laporan)
+- [x] T2.5 Export Excel .xlsx (anggaran & pembayaran)
+- [x] T2.6 Reminder `reminders:generate` 07:00 WIB + dedup
 
-### M1 — Setup & Fondasi
+## Fase 3 — SELESAI
+- [x] T3.1 Akun Partner + role + izin + hak akses nominal (policy & mask)
+- [x] T3.2 Activity log (observer + resource read-only)
+- [x] T3.3 Notifikasi in-app (bell + database notifications)
+- [x] T3.4 Tamu/keluarga CRUD + widget dashboard
 
-- [x] T1.1 Laravel 13 + auth + Livewire + Filament v5, branding tema engagement (navy/coral/cream)
-- [x] T1.2 Profil acara lamaran (CRUD, 1 event utama)
-- [x] T1.3 Dashboard: countdown + ringkasan anggaran + kegiatan <7hr/terlambat + DP terdekat, semuanya klik→sumber
+## Redesign Kimi K3 — SELESAI
+Bersih, lapang, tipografi Inter tegas, tanpa emoji, ikon heroicons, kartu/tabel rapi.
 
-### M2 — Data Inti
-
-- [x] T1.4 Kegiatan: CRUD + filter (status/kategori/PIC/tanggal/terlambat) + sortir (deadline/prioritas) + arsip
-- [x] T1.5 Item anggaran: CRUD — satuan×jumlah=estimasi, nilai kontrak, penanggung CPP/CPW/Bersama/Lainnya
-- [x] T1.6 DP & pembayaran: CRUD — jenis (DP/Cicilan/Pelunasan/Refund/Koreksi), status otomatis, metode, bukti (upload)
-
-### M3 — Export, Desain, QA
-
-- [x] T1.7 Export CSV anggaran & pembayaran (tombol hijau di header list)
-- [x] T1.8 Desain: palet cream/coral/navy, mobile-first 360px, label status teks
-- [x] T1.9 QA + aturan 5.5 + akun demo (demo@lamaran.test / DemoLamaran2026! — 10 test hijau)
-
-## Aturan Bisnis (5.5) — titik cek QA
-
+## Aturan Bisnis (5.5) — 10 test hijau
 | # | Aturan | Status |
 |---|---|---|
-| 1 | total dibayar = jumlah pembayaran valid | ✅ test hijau |
-| 2 | sisa = kontrak − dibayar | ✅ test hijau |
-| 3 | terlambat = jatuh tempo < hari ini && sisa > 0 | ✅ test hijau |
-| 4 | nominal > 0 | ✅ test hijau |
-| 5 | bayar valid ≤ kontrak (koreksi via Koreksi/Refund) | ✅ test hijau |
-| 6 | kegiatan selesai ≠ pembayaran otomatis | ✅ test hijau |
-| 7 | nominal integer Rupiah | ✅ test hijau |
+| 1 | total dibayar = pembayaran valid | ✅ |
+| 2 | sisa = kontrak − dibayar | ✅ |
+| 3 | terlambat = jatuh tempo < hari ini && sisa > 0 | ✅ |
+| 4 | nominal > 0 | ✅ |
+| 5 | bayar valid ≤ kontrak (koreksi via Koreksi/Refund) | ✅ |
+| 6 | kegiatan selesai ≠ pembayaran otomatis | ✅ |
+| 7 | nominal integer Rupiah | ✅ |
 
-## Verifikasi Keluar (Definition of Done Fase 1) — SEMUA TERPENUHI
-
-1. ✅ `php artisan test --filter=BusinessRulesTest` → 10 passed (18 assertions)
-2. ✅ Screenshot semua halaman (desktop + mobile 360px) di `screenshots/`
-3. ✅ Semua aturan 5.5 teruji otomatis
-4. ✅ Akun demo login OK (desktop + mobile + via tunnel)
-5. ✅ Push GitHub `indrafarros1/engagement-planner` (master, tanpa .env/secret bocor)
-6. ✅ Live di Cloudflare tunnel: `https://joins-amongst-candles-operator.trycloudflare.com` (URL sementara — ganti tiap restart)
+## Verifikasi Keluar
+1. ✅ `php artisan test --filter=BusinessRulesTest` → 10 passed
+2. ✅ Semua halaman 200 + screenshot desktop & mobile (screenshots/FINAL-*.png)
+3. ✅ Impor Buku.xlsx (4 item) & Export Excel diuji via UI
+4. ✅ Reminder & notifikasi dibuat (dedup bekerja)
+5. ✅ Activity log terekam saat aksi UI
+6. ✅ Partner: menu & nominal di-mask, rute anggaran 403
+7. ✅ Push GitHub, live di Cloudflare tunnel

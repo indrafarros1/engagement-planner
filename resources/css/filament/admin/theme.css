@@ -4,67 +4,170 @@
 @source '../../../../resources/views/filament/**/*';
 
 /*
- * Identitas visual "Lamaran Planner" (PRD 13.2):
- * cream #FFF8EF · coral #FF7A6B · navy #25233A
+ * Identitas visual "Lamaran Planner" (PRD 13.2) — penyajian gaya Kimi K3:
+ * bersih, lapang, tipografi tegas, tanpa dekorasi berlebihan.
+ * Palette tetap: cream #FFF8EF · coral #FF7A6B · navy #25233A
  */
 @theme {
-    --color-cream-50: #FFFBF4;
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    --color-cream-50: #FDFDFB;
     --color-cream-100: #FFF8EF;
-    --color-cream-200: #FAF0E0;
-    --color-cream-300: #F3E5CC;
+    --color-cream-200: #F8F1E4;
 
-    --color-coral-50: #FFF1EE;
-    --color-coral-100: #FFE3DE;
-    --color-coral-200: #FFC9C0;
-    --color-coral-300: #FFA597;
-    --color-coral-400: #FF8B7B;
+    --color-coral-50: #FFF6F4;
+    --color-coral-100: #FFEDEA;
+    --color-coral-200: #FFD9D3;
+    --color-coral-300: #FFB4A8;
+    --color-coral-400: #FF9488;
     --color-coral-500: #FF7A6B;
-    --color-coral-600: #F75B49;
-    --color-coral-700: #D94331;
-    --color-coral-800: #B33526;
-    --color-coral-900: #8F2D22;
+    --color-coral-600: #E95A49;
+    --color-coral-700: #C93F2F;
+    --color-coral-800: #A22E21;
+    --color-coral-900: #7E2218;
 
-    --color-navy-50: #EEEDF5;
-    --color-navy-100: #D8D6E7;
-    --color-navy-200: #B3AFD0;
-    --color-navy-300: #8B86B5;
-    --color-navy-400: #655F99;
-    --color-navy-500: #48426F;
-    --color-navy-600: #3A3459;
-    --color-navy-700: #2E2B48;
-    --color-navy-800: #292639;
+    --color-navy-50: #F2F2F7;
+    --color-navy-100: #E2E1EC;
+    --color-navy-200: #C6C4DA;
+    --color-navy-300: #A09DBE;
+    --color-navy-400: #7A77A0;
+    --color-navy-500: #58547F;
+    --color-navy-600: #464266;
+    --color-navy-700: #35324F;
+    --color-navy-800: #2C2A40;
     --color-navy-900: #25233A;
 }
 
-/* Latar panel: cream lembut */
+/* ====== LAYOUT DASAR: luas, bersih, konsisten ====== */
 .fi-body {
     background-color: var(--color-cream-100);
-}
-
-/* Sidebar: navy gelap, teks cream */
-.fi-sidebar {
-    background-color: var(--color-navy-900) !important;
-}
-.fi-sidebar .fi-sidebar-header,
-.fi-sidebar .fi-sidebar-group-label,
-.fi-sidebar .fi-sidebar-item-label,
-.fi-sidebar .fi-sidebar-item a {
-    color: var(--color-cream-100);
-}
-.fi-sidebar .fi-sidebar-item-active {
-    background-color: var(--color-coral-500);
-}
-
-/* Header/aturan interaktif */
-.fi-header-heading {
     color: var(--color-navy-900);
 }
 
-/* Topografi tombol primer menonjol (PRD 13.2 aksi mudah dijangkau) */
-.fi-btn-primary {
-    background-color: var(--color-coral-500);
+.fi-header-heading {
+    color: var(--color-navy-900);
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
+/* ====== SIDEBAR: navy solid, hierarki tegas ====== */
+.fi-sidebar {
+    background-color: var(--color-navy-900);
+}
+.fi-sidebar .fi-sidebar-header,
+.fi-sidebar .fi-sidebar-group-label {
+    color: var(--color-cream-100);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+.fi-sidebar .fi-sidebar-item-label {
+    color: color-mix(in srgb, var(--color-cream-100) 82%, transparent);
+    font-weight: 500;
+}
+.fi-sidebar .fi-sidebar-item a:hover {
+    background-color: color-mix(in srgb, var(--color-cream-100) 10%, transparent);
+}
+.fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-btn {
+    background-color: var(--color-coral-500);
+}
+.fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-label,
+.fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-icon {
+    color: var(--color-navy-900);
+    font-weight: 600;
+}
+.fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-btn:hover {
+    background-color: var(--color-coral-400);
+}
+
+/* ====== KARTU & SECTION: putih bersih, border halus, shadow lembut ====== */
+.fi-section {
+    background-color: #FFFFFF;
+    border: 1px solid color-mix(in srgb, var(--color-navy-900) 6%, transparent);
+    box-shadow: 0 1px 3px rgba(37, 35, 58, 0.04);
+    border-radius: 0.75rem;
+}
+.fi-section-header .fi-section-header-heading {
+    color: var(--color-navy-900);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+/* Stat widget (ringkasan angka) */
+.fi-widget-stats .fi-widget-stats-overview-stat {
+    background-color: #FFFFFF;
+    border: 1px solid color-mix(in srgb, var(--color-navy-900) 6%, transparent);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(37, 35, 58, 0.04);
+}
+.fi-widget-stats .fi-widget-stats-overview-stat-body .fi-widget-stats-overview-stat-label {
+    color: color-mix(in srgb, var(--color-navy-900) 55%, transparent);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+.fi-widget-stats .fi-widget-stats-overview-stat-body .fi-widget-stats-overview-stat-value {
+    color: var(--color-navy-900);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ====== TABEL: rapi, header tegas, baris bersih ====== */
+.fi-ta-content {
+    background-color: #FFFFFF;
+    border: 1px solid color-mix(in srgb, var(--color-navy-900) 6%, transparent);
+    border-radius: 0.75rem;
+}
+.fi-ta-header-cell {
+    background-color: var(--color-cream-200);
+    color: color-mix(in srgb, var(--color-navy-900) 70%, transparent);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.fi-ta-row:hover {
+    background-color: var(--color-cream-50);
+}
+
+/* ====== TOMBOL: aksi primer menonjol (PRD 13.2) ====== */
+.fi-btn-primary {
+    background-color: var(--color-coral-500);
+    color: #FFFFFF;
+    font-weight: 600;
+    border-radius: 0.5rem;
+}
 .fi-btn-primary:hover {
     background-color: var(--color-coral-600);
+}
+
+/* ====== BADGE STATUS: teks selalu tampil, warna hanya penguat ====== */
+.fi-badge {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+/* ====== FORM: input jelas ====== */
+.fi-input,
+.fi-select-input {
+    border-radius: 0.5rem;
+    border-color: color-mix(in srgb, var(--color-navy-900) 14%, transparent);
+}
+.fi-input:focus,
+.fi-select-input:focus {
+    border-color: var(--color-coral-500);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-coral-500) 25%, transparent);
+}
+
+/* ====== HEADER/TOPBAR: minimal ====== */
+.fi-topbar {
+    background-color: rgba(255, 248, 239, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-navy-900) 6%, transparent);
+}
+
+/* Number tabular di semua angka keuangan */
+.fi-ta-text {
+    font-variant-numeric: tabular-nums;
 }

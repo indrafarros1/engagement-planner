@@ -5,14 +5,17 @@ namespace App\Models;
 use App\Enums\Payer;
 use App\Enums\SeserahanStatus;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\OwnedByUser;
 
 class SeserahanItem extends Model
 {
+    use OwnedByUser;
     protected $guarded = [];
 
     protected function casts(): array
     {
         return [
+            'user_id' => 'integer',
             'quantity' => 'integer',
             'unit_price' => 'integer',
             'status' => SeserahanStatus::class,

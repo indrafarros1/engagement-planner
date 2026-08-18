@@ -6,14 +6,17 @@ use App\Enums\BudgetCategory;
 use App\Enums\Payer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Concerns\OwnedByUser;
 
 class BudgetItem extends Model
 {
+    use OwnedByUser;
     protected $guarded = [];
 
     protected function casts(): array
     {
         return [
+            'user_id' => 'integer',
             'category' => BudgetCategory::class,
             'payer' => Payer::class,
             'unit_price' => 'integer',

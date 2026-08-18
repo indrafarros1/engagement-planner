@@ -77,6 +77,22 @@ class UserResource extends Resource
             ]);
     }
 
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        // Owner melihat dirinya sendiri + semua anggota (member) yang dia buat.
+        $user = auth()->user();
+        $query = parent::getEloquentQuery();
+
+        if ($user?->isOwner()) {
+            return $query->where(fn ($q) => $q
+                ->where('id', $user->id)
+                ->orWhere('owner_id', $user->id)
+            );
+        }
+
+        return $query->whereRaw('1 = 0'); // non-owner tak boleh lihat daftar akun
+    }
+
     public static function getPages(): array
     {
         return [

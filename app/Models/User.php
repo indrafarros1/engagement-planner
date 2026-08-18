@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'role', 'can_view_amounts', 'partner_side'])]
+#[Fillable(['name', 'email', 'password', 'role', 'can_view_amounts', 'partner_side', 'owner_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -33,6 +33,16 @@ class User extends Authenticatable
             'partner_side' => Payer::class,
             'can_view_amounts' => 'boolean',
         ];
+    }
+
+    public function owner(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(self::class, 'owner_id');
+    }
+
+    public function members(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(self::class, 'owner_id');
     }
 
     public function isOwner(): bool

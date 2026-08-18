@@ -7,14 +7,17 @@ use App\Enums\ActivityStatus;
 use App\Enums\Payer;
 use App\Enums\Priority;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\OwnedByUser;
 
 class Activity extends Model
 {
+    use OwnedByUser;
     protected $guarded = [];
 
     protected function casts(): array
     {
         return [
+            'user_id' => 'integer',
             'category' => ActivityCategory::class,
             'pic' => Payer::class,
             'priority' => Priority::class,

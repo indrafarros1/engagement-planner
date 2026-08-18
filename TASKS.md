@@ -3,7 +3,16 @@
 > Sumber: brief AI PM + instruksi Bos 17 Agu 2026. **SEMUA fase selesai.**
 > Lokasi: `/opt/data/projects/engagement-planner/` (app) — push GitHub `indrafarros1/engagement-planner` ✅
 
-## STATUS: Fase 1–3 + Redesign + Ops — SELESAI ✅ (17 Agu 2026)
+## STATUS: Fase 1–3 + Redesign + Ops + ISOLASI DATA — SELESAI ✅ (17 Agu 2026)
+
+## FIX KRITIS: Isolasi Data Per User — SELESAI ✅
+- [x] Migration: `user_id` (owner) ke SEMUA tabel data (event_profiles, activities, budget_items, payments, vendors, vendor_options, seserahan_items, guests, payment_attachments)
+- [x] Trait `OwnedByUser` + global scope otomatis → owner melihat datanya, partner membaca data owner (owner_id), akun baru = KOSONG
+- [x] Backfill data existing → milik Owner (owner@engagement.test)
+- [x] Partner terhubung ke owner (`owner_id` di users); akun dibuat owner → otomatis member
+- [x] UserResource hanya menampilkan owner + member-nya
+- [x] Reminder command loop per-owner (tidak bocor lintas akun)
+- [x] VERIFIKASI (browser + screenshot): (a) register akun baru → dashboard kosong ✅ (b) Owner → semua data lama tetap ✅ (c) Partner → data owner sesuai izin, nominal disembunyikan ✅ helper 403
 
 ## Fase 1 (MVP) — SELESAI
 - [x] T1.1 Laravel 13 + auth + Livewire 4 + Filament v5, branding engagement
